@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
 require('dotenv').config();
 
+
 // Middleware
 app.use(express.json({limit: '10mb'}));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
@@ -30,7 +31,7 @@ app.use('/admin', require('./routes/admin'));
 
 app.use('/', require('./routes/frontend'));
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
