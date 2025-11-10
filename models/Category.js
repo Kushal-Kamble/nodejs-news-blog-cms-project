@@ -1,3 +1,6 @@
+//  create category schema with fileds namem desciption slug timestamp
+
+
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 

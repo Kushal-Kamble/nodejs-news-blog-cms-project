@@ -1,3 +1,5 @@
+// include models file category , news , user , setting
+
 const moongoose = require('mongoose');
 
 const categoryModel = require('../models/Category');

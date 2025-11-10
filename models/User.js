@@ -1,3 +1,5 @@
+//  ctrl + i create userschema with fields fullname uswrname , password, role 
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 

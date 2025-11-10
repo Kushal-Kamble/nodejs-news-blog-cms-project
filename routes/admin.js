@@ -5,21 +5,26 @@ const isAdmin = require('../middleware/isAdmin');
 const upload = require('../middleware/multer');
 const isValid = require('../middleware/validation');
 
+// IMPORT KIYA HAI
+
 const articleController = require('../controllers/articleController');
 const categoryController = require('../controllers/categoryController');
 const commentController = require('../controllers/commentController');
 const UserController = require('../controllers/userController');
 
+// IMPORT KIYA HAI 
+
 //Login Routes
-router.get('/', UserController.loginPage);
-router.post('/index', isValid.loginValidation ,UserController.adminLogin);
-router.get('/logout',  isLoggedIn, UserController.logout);
-router.get('/dashboard', isLoggedIn, UserController.dashboard);
+// routes means URL 
+router.get('/', UserController.loginPage); // jaisehi koi login page ko call krega ye loginPage function call ho jayega controllers se
+router.post('/index', isValid.loginValidation ,UserController.adminLogin); // jaisehi koi login page ko call krega ye adminLogin function call ho jayega controllers se
+router.get('/logout',  isLoggedIn, UserController.logout); // jaisehi koi logout page ko call krega ye logout function call ho jayega controllers se
+router.get('/dashboard', isLoggedIn, UserController.dashboard); // jaisehi koi dashboard page ko call krega ye dashboard function call ho jayega controllers se
 router.get('/settings', isLoggedIn, isAdmin, UserController.settings);
 router.post('/save-settings', isLoggedIn, isAdmin, upload.single('website_logo') ,UserController.saveSettings);
 
 //User CRUD Routes
-router.get('/users', isLoggedIn, isAdmin, UserController.allUser);
+router.get('/users', isLoggedIn, isAdmin, UserController.allUser); // jaisehi koi users page ko call krega ye allUser function call ho jayega controllers se
 router.get('/add-user', isLoggedIn, isAdmin, UserController.addUserPage);
 router.post('/add-user', isLoggedIn, isAdmin,  isValid.userValidation ,UserController.addUser);
 router.get('/update-user/:id', isLoggedIn, isAdmin, UserController.updateUserPage);
