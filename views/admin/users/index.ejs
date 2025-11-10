@@ -19,7 +19,9 @@
 <script src="https://unpkg.com/tabulator-tables@6.0.0/dist/js/tabulator.min.js"></script>
 
 <script>
-const tableData = <%- JSON.stringify(users) %>
+const tableData = <%- JSON.stringify(users) %>  // json formate  me convert kr dega
+
+// console.log(tableData);
 
 var table = new Tabulator("#usersTable", {
     data: tableData,
@@ -41,23 +43,24 @@ var table = new Tabulator("#usersTable", {
 
 // Delete User
 async function deleteUser(id){
+  // PUT THIS CODE IN TRY AND CATCH METHOD WITH CONFIRMANTION
   try {
     if (confirm("Are you sure you want to delete this user?")) {
-      const response = await fetch(`/admin/delete-user/${id}`, {
-        method: 'delete'
+      const response = await fetch(`/admin/delete-user/${id}`, { // ye id url me jayegi
+        method: 'delete' // method delete hoga
       });
-      if(response.ok){
-        window.location.reload();
+      if(response.ok){ // agar response ok hai to
+        window.location.reload();// page ko reload kr dena
       }
 
-      if(response.status == 400){
-        const data = await response.json();
-        alert(data.message);
+      if(response.status == 400){// agar status 400 hai to
+        const data = await response.json();// json me convert kr dena
+        alert(data.message);// aur alert me message show kr dena
       }
       
     }
-  } catch (error) {
-    console.log(error);
+  } catch (error) {// agar error aata hai to
+    console.log(error);// error ko console me show kr dena
   }
 }
 </script>

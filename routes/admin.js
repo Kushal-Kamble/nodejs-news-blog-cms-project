@@ -27,16 +27,16 @@ router.post('/save-settings', isLoggedIn, isAdmin, upload.single('website_logo')
 router.get('/users', isLoggedIn, isAdmin, UserController.allUser); // jaisehi koi users page ko call krega ye allUser function call ho jayega controllers se
 router.get('/add-user', isLoggedIn, isAdmin, UserController.addUserPage);
 router.post('/add-user', isLoggedIn, isAdmin,  isValid.userValidation ,UserController.addUser);
-router.get('/update-user/:id', isLoggedIn, isAdmin, UserController.updateUserPage);
-router.post('/update-user/:id', isLoggedIn, isAdmin, isValid.userUpdateValidation , UserController.updateUser);
+router.get('/update-user/:id', isLoggedIn, isAdmin, UserController.updateUserPage); // user ko open krne ke liye maine  ye rounte ka use kiya hai 
+router.post('/update-user/:id', isLoggedIn, isAdmin, isValid.userUpdateValidation , UserController.updateUser); // user ke data ko update krne ke liye ye route use kiya hai
 router.delete('/delete-user/:id', isLoggedIn, isAdmin, UserController.deleteUser);
 
 //Category CRUD Routes
 router.get('/category', isLoggedIn, isAdmin, categoryController.allCategory);
 router.get('/add-category', isLoggedIn, isAdmin, categoryController.addCategoryPage);
 router.post('/add-category', isLoggedIn, isAdmin,  isValid.categoryValidation, categoryController.addCategory);
-router.get('/update-category/:id', isLoggedIn, isAdmin, categoryController.updateCategoryPage);
-router.post('/update-category/:id', isLoggedIn, isAdmin,  isValid.categoryValidation, categoryController.updateCategory);
+router.get('/update-category/:id', isLoggedIn, isAdmin, categoryController.updateCategoryPage); 
+router.post('/update-category/:id', isLoggedIn, isAdmin,  isValid.categoryValidation, categoryController.updateCategory); 
 router.delete('/delete-category/:id', isLoggedIn, isAdmin, categoryController.deleteCategory);
 
 //Article CRUD Routes
