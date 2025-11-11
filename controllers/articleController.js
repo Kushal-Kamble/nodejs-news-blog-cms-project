@@ -7,12 +7,13 @@ const createError = require('../utils/error-message');
 const { validationResult } = require('express-validator')
 
 const allArticle = async (req,res,next) => {
+  // write a code to fetch all articles from newsModel and populate category and author fields
   try {
     let articles;
     if(req.role === 'admin'){ 
      articles = await newsModel.find()
                                 .populate('category','name')
-                                .populate('author','fullname');
+                                .populate('author','fullname'); // join lagane ke liye populate ka use kiya hai res.json(articles)
     }else{
       articles = await newsModel.find({ author: req.id })
                                 .populate('category','name')
@@ -27,11 +28,13 @@ const allArticle = async (req,res,next) => {
 }
 
 const addArticlePage = async (req,res) => {
+  
   const categories = await categoryModel.find();
   res.render('admin/articles/create', { role: req.role, categories, errors: 0 });
 }
 
 const addArticle = async (req,res,next) => { 
+  // write a code to write new arcticle with image upload
   console.log(req.body, req.file)
 
   const errors = validationResult(req); 
@@ -63,12 +66,13 @@ const addArticle = async (req,res,next) => {
 }
 
 const updateArticlePage = async (req,res,next) => {
-  const id = req.params.id;
+  // write a code to get article by id which we get from params and send data to update page
+  const id = req.params.id; // parameter se id mil rha hai  
 
   try {
     const article = await newsModel.findById(id)
-                                   .populate('category', 'name')
-                                   .populate('author', 'fullname');
+                                   .populate('category', 'name') // category ko join krne ke liye
+                                   .populate('author', 'fullname'); // author ko join krne ke liye
     if (!article) {
       return next(createError('Article not found', 404));
     }

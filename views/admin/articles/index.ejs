@@ -34,6 +34,7 @@ var table = new Tabulator("#articlesTable", {
         formatter:function(cell, formatterParams, onRendered){
           var date = new Date(cell.getValue());
           return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).replace(/\s/g, '-');
+          // return moment(cell.getValue()).format('DD-MMM-YYYY');
         } },
         { title: "Author", field: "author.fullname", headerFilter:"input" },
         { title: "Actions", formatter: function(cell, formatterParams, onRendered) {

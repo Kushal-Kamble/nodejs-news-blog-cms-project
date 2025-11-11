@@ -30,22 +30,25 @@ const adminLogin = async (req, res, next) => {
     })
   }
 
-  const { username, password } = req.body;
+  const { username, password } = req.body; // form se username aur password milega
+  // jo req.body se usrnam eaur password milega usko yhape use krna hai
+  // write a code for login user with username and password with the use of byscrpt and jwt token and save the token in cookies
   try {
-    const user = await userModel.findOne({ username });
-    if (!user) {
+    const user = await userModel.findOne({ username }); // check krega uss username se user hai ki nahi
+    if (!user) { // agar user na mile to
       return next(createError('Invalid username or password', 401));
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
+    const isMatch = await bcrypt.compare(password, user.password); // password ko compare krega
+    if (!isMatch) { // agar password match na ho to
        return next(createError('Invalid username or password', 401));
     }
 
-    const jwtData = { id: user._id, fullname: user.fullname, role: user.role }
-    const token = jwt.sign(jwtData, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.cookie('token', token, { httpOnly: true, maxAge: 60 * 60 * 1000 });
-    res.redirect('/admin/dashboard');
+    const jwtData = { id: user._id, fullname: user.fullname, role: user.role } // token me ye data store krna hai
+    const token = jwt.sign(jwtData, process.env.JWT_SECRET, { expiresIn: '1h' });// token generate krna hai
+    // token ko cookie me store kr dena hai
+    res.cookie('token', token, { httpOnly: true, maxAge: 60 * 60 * 1000 });// 1 hour
+    res.redirect('/admin/dashboard');// dashboard pe redirect kr dena hai
   } catch (error) {
     next(error)
   }

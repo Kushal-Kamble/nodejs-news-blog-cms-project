@@ -31,7 +31,7 @@ var table = new Tabulator("#categoriesTable", {
         { title: "Category Name", field: "name", headerFilter:"input" },
         { title: "Slug", field: "slug", headerFilter:"input" },
         { title: "Actions", formatter: function(cell, formatterParams, onRendered) {
-            return `<a href="/admin/update-category/${cell.getData()._id}" class="btn btn-sm btn-success">Edit</a>
+            return `<a href="/admin/update-category/${cell.getData()._id}" class="btn btn-sm btn-success">Edit</a> 
                     <button class="btn btn-sm btn-danger delete-category" onclick="deleteCategory('${cell.getData()._id}')">Delete</button>`;
         }}
     ],

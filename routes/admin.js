@@ -1,9 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const isLoggedIn = require('../middleware/isLoggedin');
-const isAdmin = require('../middleware/isAdmin');
-const upload = require('../middleware/multer');
-const isValid = require('../middleware/validation');
+const express = require('express');//express name ka variable banaya hai jisme express module ko import kiya hai
+const router = express.Router();// router naam ka variable banaya hai jisme express ke router ko import kiya hai
+const isLoggedIn = require('../middleware/isLoggedin'); // isLoggedIn naam ka variable banaya hai jisme isLoggedin middleware ko import kiya hai
+const isAdmin = require('../middleware/isAdmin');//isadmin naam ka variable banaya hai jisme isAdmin middleware ko import kiya hai
+const upload = require('../middleware/multer');// upload naam ka variable banaya hai jisme multer middleware ko import kiya hai
+const isValid = require('../middleware/validation');//isvalid naam ka variable banaya hai jisme validation middleware ko
 
 // IMPORT KIYA HAI
 
@@ -25,8 +25,8 @@ router.post('/save-settings', isLoggedIn, isAdmin, upload.single('website_logo')
 
 //User CRUD Routes
 router.get('/users', isLoggedIn, isAdmin, UserController.allUser); // jaisehi koi users page ko call krega ye allUser function call ho jayega controllers se
-router.get('/add-user', isLoggedIn, isAdmin, UserController.addUserPage);
-router.post('/add-user', isLoggedIn, isAdmin,  isValid.userValidation ,UserController.addUser);
+router.get('/add-user', isLoggedIn, isAdmin, UserController.addUserPage); // sirf admin hi add-user page ko open kr skta hai isliye isme isAdmin middleware ka use kiya hai
+router.post('/add-user', isLoggedIn, isAdmin,  isValid.userValidation ,UserController.addUser); //sirf admin hi add user kr skta hai isliye isme isAdmin middleware ka use kiya hai
 router.get('/update-user/:id', isLoggedIn, isAdmin, UserController.updateUserPage); // user ko open krne ke liye maine  ye rounte ka use kiya hai 
 router.post('/update-user/:id', isLoggedIn, isAdmin, isValid.userUpdateValidation , UserController.updateUser); // user ke data ko update krne ke liye ye route use kiya hai
 router.delete('/delete-user/:id', isLoggedIn, isAdmin, UserController.deleteUser);
