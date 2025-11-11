@@ -45,10 +45,10 @@ var table = new Tabulator("#articlesTable", {
 });
 
 // Delete User
-async function deleteArticle(id){
+async function deleteArticle(id){ // article ko delete krne ka function
   try {
     if (confirm("Are you sure you want to delete this article?")) {
-      const response = await fetch(`/admin/delete-article/${id}`, {
+      const response = await fetch(`/admin/delete-article/${id}`, { // request jayegi ye  route pe
         method: 'delete'
       });
       if(response.ok){
