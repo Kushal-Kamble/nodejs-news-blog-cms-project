@@ -2,13 +2,13 @@ const { body } = require('express-validator')
 
 const loginValidation = [
   body('username')
-    .trim()
-    .notEmpty()
-    .withMessage('Username is required')
-    .matches(/^\S+$/)
-    .withMessage('Username must not contain spaces')
-    .isLength({ min: 5, max: 12 })
-    .withMessage('Username must be 5 to 10 characters long'),
+    .trim()// remove spaces from start and end
+    .notEmpty()// check if username is not empty
+    .withMessage('Username is required')// custom message
+    .matches(/^\S+$/)// check if username contains no spaces
+    .withMessage('Username must not contain spaces')// custom message
+    .isLength({ min: 5, max: 12 })// check length between 5 and 12
+    .withMessage('Username must be 5 to 10 characters long'),// custom message
 
   body('password')
     .trim()
@@ -85,6 +85,7 @@ const categoryValidation = [
 ]
 
 const articleValidation = [
+  // write a validation for article title a, content and category
   body('title')
     .trim()
     .notEmpty()

@@ -1,9 +1,9 @@
 const categoryModel = require('../models/Category');
 const newsModel = require('../models/News');
 const userModel = require('../models/User');
-const fs = require('fs')
-const path = require('path')
-const createError = require('../utils/error-message');
+const fs = require('fs') // file system module
+const path = require('path')//path module
+const createError = require('../utils/error-message'); // ye createError variable me error-message.js file se import kiya hai
 const { validationResult } = require('express-validator')
 
 const allArticle = async (req,res,next) => {
@@ -108,9 +108,9 @@ const updateArticle = async (req,res,next) => {
   
   try {
     const { title, content, category } = req.body;
-    const article = await newsModel.findById(id);
+    const article = await newsModel.findById(id); // check krte hai article database me hai ki nhi
     if (!article) {
-      return next(createError('Article not found', 404));
+      return next(createError('Article not found', 404)); // agar article nhi mila to 404 error bhej dena hai
     }
 
     if(req.role == 'author'){
@@ -124,9 +124,9 @@ const updateArticle = async (req,res,next) => {
     article.category = category;
 
     if (req.file) {
-      const imagePath = path.join(__dirname, '../public/uploads', article.image);
-      fs.unlinkSync(imagePath);
-      article.image = req.file.filename;
+      const imagePath = path.join(__dirname, '../public/uploads', article.image); // purani image ka path
+      fs.unlinkSync(imagePath);// purani image delete kar di
+      article.image = req.file.filename;// nayi image set kar di
     }
 
     await article.save();

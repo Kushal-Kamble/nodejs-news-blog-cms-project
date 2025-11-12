@@ -18,7 +18,7 @@ const categorySchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    timestamps: {
+    timestamps: { // ye automatically create ho jayega jab category create hogi
         type: Date,
         default: Date.now
     }

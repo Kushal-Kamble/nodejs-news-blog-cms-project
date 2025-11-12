@@ -53,33 +53,36 @@ router.put('/update-comment-status/:id', isLoggedIn, commentController.updateCom
 router.delete('/delete-comment/:id', isLoggedIn, commentController.deleteComment);
 
 // 404 Middleware
-router.use(isLoggedIn,(req, res, next) => { 
-  res.status(404).render('admin/404',{
-    message: 'Page not found',
-    role: req.role 
+// jab user aise page ki request krta hai jo page hai hi nhi  to ye middleware call hota hai
+router.use(isLoggedIn,(req, res, next) => { // ye middleware tab call hoga jab koi aisa page request karega jo exist nhi krta
+  res.status(404).render('admin/404',{// ye 404 page render kr dega
+    message: 'Page not found',// ye message bhej dega
+    role: req.role // ye konsa role hai vo bhej dega jaise admin ya user
   })
 });
 
 // 500 Error Handler
-router.use(isLoggedIn, (err, req, res, next) => { 
-  console.error(err.stack);
-  const status = err.status || 500;
+// jab server me koi error aata hai to ye middleware call hota hai
+router.use(isLoggedIn, (err, req, res, next) => {  // ye middleware tab call hoga jab server me koi error aayega
+  console.error(err.stack);// ye error ko console me print kr dega
+  const status = err.status || 500;// ye status code ko set kr dega agar error me status code hai to vo use kr lega warna 500 use kr lega
+  // convert this code into js switch case code
   let view;
   switch (status) {
     case 401:
-      view = 'admin/401';
+      view = 'admin/401';// unauthorized error page means agar user ke pass access nhi hai to ye page dikhayega
       break;
     case 404:
-      view = 'admin/404';
+      view = 'admin/404'; // page not found error page means agar page exist nhi krta to ye page dikhayega
       break;
     case 500:
-      view = 'admin/500';
+      view = 'admin/500'; // internal server error page means agar server me koi error aata hai to ye page dikhayega
       break;
     default:
-      view = 'admin/500';
+      view = 'admin/500';// default page internal server error page means agar koi aur error aata hai to ye page dikhayega
   }
-  res.status(status).render(view,{
-    message: err.message || 'Something went wrong',
+  res.status(status).render(view,{ // ye page render kr dega
+    message: err.message || 'Something went wrong', // ye error message bhej dega agar error me message hai to vo use kr lega warna 'Something went wrong' use kr lega
     role: req.role 
   })
 });

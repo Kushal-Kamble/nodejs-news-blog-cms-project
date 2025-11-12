@@ -18,7 +18,8 @@
                     <h1><%= categoryCount %></h1>
                   </div>
               </div>
-              <% if(role == 'admin') { %> 
+              <!-- agar user admin hai to hi users ka count dikhana hai -->
+              <% if(role == 'admin') { %>  
               <div class="col-md-3">
                   <div class="admin-block" style="background-color: #D2F4EA;">
                     <i class="fa fa-users"></i>

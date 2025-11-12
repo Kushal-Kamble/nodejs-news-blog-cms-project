@@ -22,11 +22,11 @@ const loginPage = async (req,res) => {
 
 const adminLogin = async (req, res, next) => {
   const errors = validationResult(req);
-  if (!errors.isEmpty()) {
+  if (!errors.isEmpty()) { // agar empty hai to  
     // return res.status(400).json({ errors: errors.array() });
     return res.render('admin/login',{
       layout: false,
-      errors: errors.array()
+      errors: errors.array()// errors ko array me convert krke bhej dena
     })
   }
 
@@ -60,23 +60,26 @@ const logout = async (req,res) => {
  }
 
 const dashboard = async (req, res,next) => {
+  // write a code to fetch total number of articles, categories and users from the database and render it to the dashboard page
+  // write a code to count articles, categories and users and send in dashbord page from the database
   try {
     let articleCount;
-    if(req.role == 'author'){
+    if(req.role == 'author'){ // agar user author hai to sirf uske articles ka count karna hai
+      // agar user auther hai tab ky krna hai aur nhi hai tab ky krna hai 
       articleCount = await newsModel.countDocuments({ author: req.id });
     }else{
-      articleCount = await newsModel.countDocuments();
+      articleCount = await newsModel.countDocuments(); // agar user admin hai to sabhi articles ka count karna hai
     }
    
     const categoryCount = await categoryModel.countDocuments();
     const userCount = await userModel.countDocuments();
 
-    res.render('admin/dashboard', { 
-      role: req.role, 
-      fullname: req.fullname,
-      articleCount,
-      categoryCount,
-      userCount 
+    res.render('admin/dashboard', {  //redner ki help se dashborad page open kiya hai
+      role: req.role,  // yhase maine role bhej dena taaki navbar me dikhe
+      fullname: req.fullname,// ye navbar me dikhane ke liye hai
+      articleCount,// ye dashboard me dikhane ke liye hai
+      categoryCount,//ye count dashboard me dikhane ke liye hai
+      userCount // ye count dashboard me dikhane ke liye hai
     });
   } catch (error) {
     next(error)
@@ -86,37 +89,38 @@ const dashboard = async (req, res,next) => {
 
 const settings = async (req,res,next) => { 
   try {
-    const settings = await settingModel.findOne()
-    res.render('admin/settings', { role: req.role , settings})
+    const settings = await settingModel.findOne() // settings naam ka variable bnaya hai jisme settingModel se pehla document milega 
+    res.render('admin/settings', { role: req.role , settings}) // settings page ko render kr dega aur settings ka data bhej dena
   } catch (error) {
     next(error)
   }
 }
 
 const saveSettings = async (req, res, next) => {
-  const { website_title, footer_description } = req.body;
-  const website_logo = req.file?.filename;
+  // create a code to save settings data to the database
+  const { website_title, footer_description } = req.body; // form me se ese 2 filed milegi website_title aur footer_description
+  const website_logo = req.file?.filename; // multer se file milegi agar file upload ki hai to
 
   try {
-    let setting = await settingModel.findOne();
+    let setting = await settingModel.findOne(); // pehle se setting hai ki nahi database me
     if(!setting){
-      setting = new settingModel();
+      setting = new settingModel();// agar setting nahi hai to nayi setting bna dena
     }
-    setting.website_title = website_title;
-    setting.footer_description = footer_description;
+    setting.website_title = website_title; // ye website_title me daal dena
+    setting.footer_description = footer_description;// ye footer_description me daal dena
 
     if(website_logo){
-      if(setting.website_logo){
-        const logoPath = `./public/uploads/${setting.website_logo}`;
-        if (fs.existsSync(logoPath)) {
-          fs.unlinkSync(logoPath);
+      if(setting.website_logo){// agar purana logo hai to usko delete kr dena
+        const logoPath = `./public/uploads/${setting.website_logo}`;// purane logo ka path
+        if (fs.existsSync(logoPath)) {// agar file exist krti hai to
+          fs.unlinkSync(logoPath);// file ko delete kr dena
         }
       }
-      setting.website_logo = website_logo;
+      setting.website_logo = website_logo;// naya logo daal dena
     }
 
-    await setting.save();
-    res.redirect('/admin/settings');
+    await setting.save();// setting ko save kr dena
+    res.redirect('/admin/settings');// aur settings page pe chala jayega
   } catch (error) {
     next(error)
   }
@@ -168,7 +172,7 @@ const updateUser = async (req,res,next) => {
   const errors = validationResult(req); 
    if (!errors.isEmpty()) {
     return res.render('admin/users/update',{
-      user:req.body,
+      user:req.body, // form ki values bhej dena taaki form me dikhe
       role: req.role,
       errors: errors.array()
     })
