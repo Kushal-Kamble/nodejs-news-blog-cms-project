@@ -1,4 +1,6 @@
-  <% news = paginatedNews.data %>
+  <% news = paginatedNews.data %> 
+   <!-- ye line humne yha add ki hai taki paginated data se news mil jaye -->
+  <!-- write a code to show news in loop with foreach method and show in html formate like below code -->
   <% news.forEach(function(article) { %>
       <div class="post-content">
           <div class="row">
@@ -19,11 +21,13 @@
                           </span>
                           <span>
                               <i class="fa fa-calendar" aria-hidden="true"></i>
+                              <!-- covert this date to human readable format like 13 November 2025 -->
                               <%= new Date(article.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }) %>
                           </span>
                       </div>
                       <p class="description">
-                          <%= article.content.substring(0, 30) + '...' %>
+                          <%= article.content.substring(0, 30) + '...' %> 
+                           <!-- show first 30 characters of content -->
                       </p>
                       <a class='read-more pull-right' href='/single/<%= article._id %>'>read more</a>
                   </div>
@@ -34,17 +38,18 @@
 
   <% 
       function buildQuery(query, page) {
-        const params = new URLSearchParams(query);
-        params.set('page', page);
-        return '?' + params.toString();
+        const params = new URLSearchParams(query); // URLSearchParams ye search quercy params me store kar dega
+        params.set('page', page); // jo search de data aaya hai usme page set kar denge
+        return '?' + params.toString(); // fir usse string me convert kar denge aur return kar denge
       }
   %> 
 
   <nav>
+    <!-- convert  this html code into dynamic pagination-->
     <ul class="pagination">
       <% if(paginatedNews.hasPrevPage) { %>
         <li class="page-item">
-          <a class="page-link" href="<%= buildQuery(query, paginatedNews.prevPage) %>">Previous</a>
+          <a class="page-link" href="<%= buildQuery(query, paginatedNews.prevPage) %>">Previous</a> 
         </li>
       <% } else { %>
         <li class="page-item disabled">

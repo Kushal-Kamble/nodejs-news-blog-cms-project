@@ -4,6 +4,9 @@ const createError = require('../utils/error-message')
 const { validationResult } = require('express-validator')
 
 const allComments = async (req,res,next) => { 
+  // Admin ko sare comments dikhne chahiye
+  // Author ko sirf unhi articles ke comments dikhne chahiye jo usne likhe hain
+
   try {
     let comments;
     if(req.role === 'admin'){
@@ -12,8 +15,8 @@ const allComments = async (req,res,next) => {
                                       .sort({ createdAt: -1 });
     }else{
       const news = await newsModel.find({ author: req.id });
-      const newsIds = news.map(news => news._id);
-      comments = await commentModel.find({ article: { $in: newsIds } })
+      const newsIds = news.map(news => news._id); //map har bar chalega aur har news ka id le lega
+      comments = await commentModel.find({ article: { $in: newsIds } }) //article field me se unhi comments ko le jo newsIds me hain
                                       .populate('article', 'title')
                                       .sort({ createdAt: -1 });
     }

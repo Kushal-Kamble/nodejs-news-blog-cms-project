@@ -10,7 +10,7 @@ const paginate = async (model, query = {}, reqQuery = {}, options = {}) => {
   }
 
   try {
-  const result = await model.paginate(query, paginationOptions)
+  const result = await model.paginate(query, paginationOptions)// ye mongoose paginate ka method hai jo hume pagination ka result dega
 
   return {
     data: result.docs,

@@ -8,7 +8,7 @@ const loadCommonData = require('../middleware/loadCommonData');
 
 // IMPORT KIYA HAI
 
-router.use(loadCommonData);
+router.use(loadCommonData); // ye middleware har route pe chalega taki common data har page pe available ho aur ye sab router pe chalega
 
 router.get('/', siteController.index); // jaisehi koi home page ko call krega ye index function call ho jayega controllers se 
 router.get('/category/:name', siteController.articleByCategories); // jaisehi koi category page ko call krega ye articleByCategories function call ho jayega controllers se

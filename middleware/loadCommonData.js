@@ -7,14 +7,14 @@ const loadCommonData = async (req,res,next) => {
     const settings = await settingModel.findOne()
       
     const latestNews = await newsModel.find()
-                            .populate('category',{'name':1, 'slug':1})
-                            .populate('author','fullname')
+                            .populate('category',{'name':1, 'slug':1}) // category ka name aur slug chahiye
+                            .populate('author','fullname') // join author se fullname chahiye
                             .sort({createdAt: -1}).limit(5)
     
     const categoriesInUse = await newsModel.distinct('category')   
     const categories = await categoryModel.find({'_id':{$in:categoriesInUse}}) 
     
-    res.locals.settings = settings
+    res.locals.settings = settings // ye sab data hamesha sab page pe chahiye isliye res.locals me rakh rahe hai
     res.locals.latestNews = latestNews
     res.locals.categories = categories
 

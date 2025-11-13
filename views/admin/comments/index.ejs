@@ -184,7 +184,7 @@ var table = new Tabulator("#commentsTable", {
 
 // View Comment
 function viewComment(id){
-  const comment = tableData.find(comment => comment._id === id);
+  const comment = tableData.find(comment => comment._id === id); //id se comment find kr rhe hai
 
   const html = `
         <p><b>Message</b> : ${comment.content}</p>

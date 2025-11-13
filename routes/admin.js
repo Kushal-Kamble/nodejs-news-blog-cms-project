@@ -48,9 +48,11 @@ router.post('/update-article/:id', isLoggedIn, upload.single('image') ,isValid.a
 router.delete('/delete-article/:id', isLoggedIn, articleController.deleteArticle);
 
 //Comment Routes
-router.get('/comments', isLoggedIn, commentController.allComments);
-router.put('/update-comment-status/:id', isLoggedIn, commentController.updateCommentStatus);
-router.delete('/delete-comment/:id', isLoggedIn, commentController.deleteComment);
+// isLoggedIn means jis users ne login kiya hai vo hi comment dekh skta hai
+router.get('/comments', isLoggedIn, commentController.allComments); //comment ko read krenge
+router.put('/update-comment-status/:id', isLoggedIn, commentController.updateCommentStatus); // comment ka status update krne ke liye
+router.delete('/delete-comment/:id', isLoggedIn, commentController.deleteComment); // comment ko delete krne ke liye
+// post
 
 // 404 Middleware
 // jab user aise page ki request krta hai jo page hai hi nhi  to ye middleware call hota hai
