@@ -35,6 +35,8 @@ const addArticlePage = async (req,res) => {
 
 const addArticle = async (req,res,next) => { 
   // write a code to write new arcticle with image upload
+  // req.body se hume form se sara data milta hai
+  // req.file se hume uploaded file ka data milta hai
   console.log(req.body, req.file)
 
   const errors = validationResult(req); 

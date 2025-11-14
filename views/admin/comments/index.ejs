@@ -203,17 +203,17 @@ function viewComment(id){
 }
 
 // Update Comment Status
-async function updateCommentStatus(id, status){ 
-  await fetch(`/admin/update-comment-status/${id}`, {
+async function updateCommentStatus(id, status){  // Update comment status
+  await fetch(`/admin/update-comment-status/${id}`, { 
     method: 'put',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ status })
   })
-  .then(response => response.json())
+  .then(response => response.json()) // hum check kr rhe ha kya response json me data aaya hai
   .then(data => {
-    if(data.success){
+    if(data.success){ // agar success true hai to page reload krdo
       window.location.reload();
     }
   })
@@ -225,6 +225,8 @@ async function updateCommentStatus(id, status){
 
 // Delete Comment
 async function deleteComment(id){
+  // write a code to delete comment and send json response
+  // syntax error means code me khi galti hai / code me khi mistake hai
   try {
     if (confirm("Are you sure you want to delete this comment?")) {
       const response = await fetch(`/admin/delete-comment/${id}`, {

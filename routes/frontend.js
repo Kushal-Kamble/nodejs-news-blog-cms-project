@@ -18,8 +18,10 @@ router.get('/author/:name', siteController.author); // jaisehi koi author page k
 router.post('/single/:id/comment', siteController.addComment); // jaisehi koi comment page ko call krega ye addComment function call ho jayega controllers se
 
 // 404 Middleware
+// agar user ne upar me se koi dusra page request kiya jo exist nhi krta to ye middleware call hoga
+// jab user aise page ki request krta hai jo page hai hi nhi  to ye middleware call hota hai
 router.use((req, res, next) => { 
-  res.status(404).render('404',{
+  res.status(404).render('404',{ // page not found ka 404 page render kr dega
     message: 'Page not found'
   })
 });
@@ -27,7 +29,7 @@ router.use((req, res, next) => {
 // 500 Error Handler
 router.use((err, req, res, next) => { 
   console.error(err.stack);
-  const status = err.status || 500;
+  const status = err.status || 500; // server error ka status code set kr diya
   
   res.status(status).render('errors',{
     message: err.message || 'Something went wrong',

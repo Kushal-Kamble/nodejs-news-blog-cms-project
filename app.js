@@ -9,8 +9,8 @@ require('dotenv').config();// yhape maine dotenv nam ka variable bnaya hai jo ki
 
 
 // Middleware
-app.use(express.json({limit: '10mb'}));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json({limit: '10mb'})); // ye middleware json data ko handle krne ke liye use hota hai
+app.use(express.urlencoded({ extended: true, limit: '10mb' })); // ye middleware form data ko handle krne ke liye use hota hai
 app.use(express.static(path.join(__dirname, 'public'))); // jitni bhi sttaic file hai o public folder ke andar hai
 app.use(cookieParser());// cookie parser middleware ko use kr rha hai
 app.use(expressLayouts);
